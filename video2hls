@@ -508,7 +508,12 @@ def fix_options(options, technical):
     if options.mp4_bitrate:
         options.mp4_bitrate = int(options.mp4_bitrate *
                                   options.video_bitrate_factor)
-
+    
+    # Populate video_widths when there is only one width in the argument list (enables single resolution renders)
+    if len(options.video_widths) == 1:
+        options.poster_width = options.video_widths[0]
+        options.mp4_width = options.video_widths[0]
+        
     # Adapt options depending on video size
     width = technical['video']['width']
     height = technical['video']['width']
